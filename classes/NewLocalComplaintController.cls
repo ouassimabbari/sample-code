@@ -6,15 +6,24 @@
  * @reference       Services Core 1.0 Build
  */
 public with sharing class NewLocalComplaintController {
-    @AuraEnabled(cacheable=true)
-    public static String getProductName(String caseId){
-
-        CaseAsset__c firstCA = [select id,Asset__c,Asset__r.CH_GCH_Product__c  from CaseAsset__c 
-                   where Case__c =:caseId AND Asset__r.CH_GCH_Product__c = true order by createddate limit 1];
-
-        Asset an = [select Product2.Name, Product2.InstrumentLineID__c,Product2.ProductID__c, SerialNumber, LotNumber__c,
-              Asset_Usage__c from Asset where id = :firstCA.Asset__c];
-
+    @AuraEnabled(cacheable = true)
+    public static String getProductInfo(String caseId) {
+        CaseAsset__c firstCA = [SELECT id, Asset__c, Asset__r.CH_GCH_Product__c from CaseAsset__c
+            where Case__c =: caseId AND Asset__r.CH_GCH_Product__c = true order by createddate limit 1
+        ];
+        Asset an = [SELECT Product2.Name, Product2.InstrumentLineID__c, Product2.ProductID__c, SerialNumber, LotNumber__c,
+            Asset_Usage__c from Asset WHERE Id =: firstCA.Asset__c
+        ];
         return an.Product2.Name;
+    }
+    private class ProductInfoWrapper {
+        String productName;
+        Id instrumentLineId;
+        public ProductInfoWrapper(String productName,
+            Id instrumentLineId) {
+            this.productName = productName;
+            this.instrumentLineId = instrumentLineId;
+        }
+
     }
 }
