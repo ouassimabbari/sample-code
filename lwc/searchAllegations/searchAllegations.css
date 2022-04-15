@@ -1,0 +1,8 @@
+.tableScroll {
+    overflow: auto;
+    overflow-y: hidden;
+    height: 10rem;
+}
+tbody > tr {
+    cursor: pointer;
+}
