@@ -1,0 +1,151 @@
+<template>
+    <div class="slds-var-p-top_small">
+        <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCloseAllegationModal}>
+                <lightning-icon icon-name="utility:close" variant="inverse" alternative-text="Close" size="medium">
+                </lightning-icon>
+                <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Link Allegation</h2>
+        </header>
+        <div class="slds-var-p-horizontal_large">
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title slds-theme_shade">
+                <span class="slds-truncate slds-var-p-horizontal_small" title="Section Title">Search Codes</span>
+                </h3>
+                <div class="slds-form-element slds-var-m-top_medium">
+                    <div class="slds-form-element__control">
+                        <lightning-input type="search" onchange={handleKeyChange} class="slds-var-m-bottom_small" label="Type To Search..." maxlength="70">  
+                        </lightning-input>  
+                    </div>
+                </div>
+                <div id="containerDiv" onmousemove={handlemousemove} onmouseup={handlemouseup}
+                    class="slds-table_header-fixed_container slds-border_right slds-border_left tableScroll slds-var-m-top_medium"
+                    onscroll={tableOuterDivScrolled}>
+                    <div id="tableViewInnerDiv" onscroll={tableScrolled} class="slds-scrollable_y tableViewInnerDiv">
+            
+                        <table
+                            class="slds-table slds-table_bordered slds-table_header-fixed slds-table_resizable-cols slds-table_fixed-layout">
+                            <thead>
+                                <tr>
+                                    <th class="slds-is-resizable dv-dynamic-width" scope="col" style={fixedWidth} title="Column 1">
+                                        <div class="slds-cell-fixed" style={fixedWidth}>
+                                            <a class="slds-th__action slds-text-link--reset ">
+                                                <span class="slds-truncate">Code</span>
+                                            </a>
+                                            <div class="slds-resizable">
+                                                <span class="slds-resizable__handle" onmousedown={handlemousedown}>
+                                                    <span class="slds-resizable__divider"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th class="slds-is-resizable dv-dynamic-width" scope="col" style={fixedWidth} title="Column 1">
+                                        <div class="slds-cell-fixed" style={fixedWidth}>
+                                            <a class="slds-th__action slds-text-link--reset ">
+                                                <span class="slds-truncate">Code Description</span>
+                                            </a>
+                                            <div class="slds-resizable">
+                                                <span class="slds-resizable__handle" onmousedown={handlemousedown}>
+                                                    <span class="slds-resizable__divider"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th class="slds-is-resizable dv-dynamic-width" scope="col" style={fixedWidth} title="Column 1">
+                                        <div class="slds-cell-fixed" style={fixedWidth}>
+                                            <a class="slds-th__action slds-text-link--reset ">
+                                                <span class="slds-truncate">Category Code</span>
+                                            </a>
+                                            <div class="slds-resizable">
+                                                <span class="slds-resizable__handle" onmousedown={handlemousedown}>
+                                                    <span class="slds-resizable__divider"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th class="slds-is-resizable dv-dynamic-width" scope="col" style={fixedWidth} title="Column 1">
+                                        <div class="slds-cell-fixed" style={fixedWidth}>
+                                            <a class="slds-th__action slds-text-link--reset ">
+                                                <span class="slds-truncate">Category Description</span>
+                                            </a>
+                                            <div class="slds-resizable">
+                                                <span class="slds-resizable__handle" onmousedown={handlemousedown}>
+                                                    <span class="slds-resizable__divider"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th class="slds-is-resizable dv-dynamic-width" scope="col" style={fixedWidth} title="Column 2">
+                                        <div class="slds-cell-fixed" style={fixedWidth}>
+                                            <a class="slds-th__action slds-text-link--reset ">
+                                                <span class="slds-truncate">Line Description</span>
+                                            </a>
+                                            <div class="slds-resizable">
+                                                <span class="slds-resizable__handle" onmousedown={handlemousedown}>
+                                                    <span class="slds-resizable__divider"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-cell-fixed">
+                                            
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template if:true={allegationsToDisplay}>
+                                        <template for:each={allegationsToDisplay} for:item="allegation" for:index="idx">
+                                            <tr key={allegation.Id} onclick={selectRow} data-index={idx}>
+                                                <td>
+                                                    <div class="slds-truncate dv-dynamic-width" style={fixedWidth}>
+                                                        <template if:true={allegation.Code__c}>
+                                                            {allegation.Code__c}
+                                                        </template>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate dv-dynamic-width" style={fixedWidth}>
+                                                        <template if:true={allegation.Name}>
+                                                            {allegation.Name}
+                                                        </template>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate dv-dynamic-width" style={fixedWidth}>
+                                                        <template if:true={allegation.CategoryCode__c}>
+                                                            {allegation.CategoryCode__c}
+                                                        </template>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate dv-dynamic-width" style={fixedWidth}>
+                                                        <template if:true={allegation.CategoryDescription__c}>
+                                                            {allegation.CategoryDescription__c}
+                                                        </template>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate dv-dynamic-width" style={fixedWidth}>
+                                                        <template if:true={allegation.LineDescription__c}>
+                                                            {allegation.LineDescription__c}
+                                                        </template>
+                                                    </div>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </template>
+                                    </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="slds-modal__footer">
+            <lightning-button label="Cancel" variant="neutral" onclick={handleCloseAllegationModal}></lightning-button>
+        </footer>
+    </div>
+</template>
