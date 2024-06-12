@@ -1,0 +1,228 @@
+<template>
+  <template if:false="{isOpenModal}">
+    <div class="slds-var-p-top_small">
+      <header class="slds-modal__header">
+        <h2
+          id="modal-heading-10"
+          class="slds-text-heading_medium slds-hyphenate"
+        >
+          New Local Complaint
+        </h2>
+      </header>
+      <lightning-record-edit-form
+        object-api-name="{localComplaintObject}"
+        onsubmit="{handleSubmit}"
+        onsuccess="{handleLocalComplaintCreated}"
+      >
+        <lightning-messages></lightning-messages>
+        <div class="slds-var-p-horizontal_large">
+          <div class="slds-section slds-is-open">
+            <h3 class="slds-section__title slds-theme_shade">
+              <span
+                class="slds-truncate slds-var-p-horizontal_small"
+                title="Section Title"
+                >Information</span
+              >
+            </h3>
+            <div class="slds-grid">
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-grid">
+                  <div class="slds-col slds-size_10-of-12">
+                    <span>
+                      <lightning-input-field
+                        field-name="{allegationField}"
+                        value="{allegationChosen}"
+                      ></lightning-input-field>
+                    </span>
+                  </div>
+                  <div class="slds-col slds-size_2-of-12 slds-var-p-top_large">
+                    <span>
+                      <lightning-button-icon
+                        icon-name="utility:search"
+                        variant="border-filled"
+                        alternative-text="Search Allegations"
+                        title="Search Allegations"
+                        onclick="{handleOpenAllegationModal}"
+                        ><label
+                          >Search Allegations</label
+                        ></lightning-button-icon
+                      >
+                    </span>
+                  </div>
+                </div>
+                <div class="slds-grid">
+                  <div class="slds-col slds-size_10-of-12">
+                    <span>
+                      <lightning-input-field
+                        field-name="{CallCenterSolutionField}"
+                        value="{callCenterSolutionChosen}"
+                      ></lightning-input-field>
+                    </span>
+                  </div>
+                  <div class="slds-col slds-size_2-of-12 slds-var-p-top_large">
+                    <span>
+                      <lightning-button-icon
+                        icon-name="utility:search"
+                        variant="border-filled"
+                        alternative-text="Search Call Center Solutions"
+                        title="Search Call Center Solutions"
+                        onclick="{handleOpenCallCenterSolutionModal}"
+                        ><label
+                          >Search Call Center Solutions</label
+                        ></lightning-button-icon
+                      >
+                    </span>
+                  </div>
+                </div>
+                <lightning-input-field
+                  field-name="{TsgSolutionField}"
+                  disabled="true"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{ProductName}"
+                  readonly="true"
+                  value="{productNameValue.data}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{TsgUrlField}"
+                  disabled="true"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{LocalComplaintDescriptionField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{CodeNonRocheField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{SolvedAtServiceCenterField}"
+                ></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field
+                  field-name="{CaseField}"
+                  value="{recordId}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{StatusField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{ComplaintSourceField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{FLISolutionField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{CaseCountryField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{ReportableField}"
+                ></lightning-input-field>
+              </div>
+            </div>
+          </div>
+          <div class="slds-section slds-is-open">
+            <h3 class="slds-section__title slds-theme_shade">
+              <span
+                class="slds-truncate slds-var-p-horizontal_small"
+                title="Section Title"
+                >Global Complaint</span
+              >
+            </h3>
+            <div class="slds-grid">
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field
+                  field-name="{LocalComplaintContactField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{AffiliateActionsTakenField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{ClinicalTrialIDField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{ClinicalTrialPatientIDField}"
+                ></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field
+                  field-name="{EventDescriptionField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{ReasonForNotAcceptingField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{SafetyOfficerConclusionField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{CMClarifyIDField}"
+                ></lightning-input-field>
+              </div>
+            </div>
+          </div>
+          <div class="slds-section slds-is-open">
+            <h3 class="slds-section__title slds-theme_shade">
+              <span
+                class="slds-truncate slds-var-p-horizontal_small"
+                title="Section Title"
+                >System Information</span
+              >
+            </h3>
+            <div class="slds-grid">
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field
+                  field-name="{OwnerIdField}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{LastModificationByIdField}"
+                ></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field
+                  field-name="{ExternalReference1Field}"
+                ></lightning-input-field>
+                <lightning-input-field
+                  field-name="{LastModifiedDateField}"
+                ></lightning-input-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="slds-modal__footer">
+          <lightning-button
+            onclick="{closeQuickAction}"
+            variant="neutral"
+            label="Cancel"
+            class="slds-var-m-left_x-small"
+          ></lightning-button>
+          <a
+            href="http://cegtool.roche.com/"
+            class="slds-button slds-button_neutral slds-var-m-left_x-small"
+            target="_blank"
+            >CEG Tool</a
+          >
+          <lightning-button
+            class="slds-var-p-left_large"
+            type="submit"
+            variant="brand"
+            label="Save"
+            disabled="{disableSaveButton}"
+          ></lightning-button>
+        </footer>
+      </lightning-record-edit-form>
+    </div>
+  </template>
+  <template if:true="{isOpenAllModal}">
+    <c-search-allegations
+      record-id="{recordId}"
+      oncloseallegationmodal="{handleCloseAllegationModal}"
+      onselectallegation="{handleSelectAllegation}"
+    ></c-search-allegations>
+  </template>
+  <template if:true="{isOpenCallCenterSolutionModal}">
+    <c-search-call-center-solutions
+      record-id="{recordId}"
+      onclosecallcentersolutionmodal="{handleCloseCallCenterSolutionModal}"
+      onselectcallcentersolution="{handleSelectCallCenterSolution}"
+    ></c-search-call-center-solutions>
+  </template>
+</template>
